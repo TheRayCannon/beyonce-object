@@ -105,7 +105,10 @@ function allFiercenessRatings() {
 }
 
 // 5. Return all the songs where Beyonce is wearing a bodysuit or a bodysuit is part of the video theme
-function songsWithBodySuits() {}
+function songsWithBodySuits() {
+    const lookBodysuits = beyonceHash.hits.filter(suit => suit.video_theme.includes("bodysuit") || suit.signature_look.includes("bodysuit"))
+    return lookBodysuits;
+}
 
 // 6. Return an array with all of the songs where Beyonce's fierceness is greater than or equal to a given number:8
 function getSongsByFiercenessGTE() {
@@ -126,35 +129,63 @@ function groupHits() {
     return groups.map(song => song.title)
 }
 
+
 // 9. Return a hit song where Beyonce's hair is blonde
-function findBlondeHit() {}
+function findBlondeHit() {
+    return beyonceHash.hits.find(song => song.hair.includes("blonde"))
+}
 
 // 10. Return the hit song "Sorry"
-function sorry() {}
+function sorry() {
+    return beyonceHash.hits.filter(song => song.title === "Sorry")
+}
 
 // 11. Return a given song
-function getSong() {}
+function getSong(name) {
+    return beyonceHash.hits.filter(song => song.title === `${name}`)
+}
 
 // 12. Return all hit songs where Beyonce's fierceness rating is 10
-function fiercestHits() {}
+function fiercestHits() {
+    const newArray = beyonceHash.hits.filter(rateTen => rateTen.fierceness === 10)
+    return newArray.map(song => song.title)
+}
 
 // 13. Return the sum of Beyonce's fierceness value for all of her hit songs
-function hitFiercenessSum() {}
+function hitFiercenessSum() {
+    return allFiercenessRatings().reduce((a, b) => a + b, 0)
+}
 
 // 14. Return the average fierceness value for all Beyonce's hit songs
-function hitFiercenessAverage() {}
+function hitFiercenessAverage() {
+    const average = (hitFiercenessSum() / beyonceHash.hits.length)
+    return average.toFixed(2)
+}
 
 // 15. Return the sum of Beyonce's rating value for all of her movies
-function ratingSum() {}
+function ratingSum() {
+    return beyonceHash.movies
+        .map(score => score.rating)
+        .reduce((a, b) => a + b, 0)
+}
 
 // 16. Return the average rating value for all of her movies
-function ratingAverage() {}
+function ratingAverage() {
+    const avrg = (ratingSum() / beyonceHash.movies.length)
+    return avrg
+}
 
 // 17. Return the sum of the total number of dancers in all of the hit song videos
-function hitDancerSum() {}
+function hitDancerSum() {
+    return beyonceHash.hits
+        .map(dance => dance.dancers)
+        .reduce((a, b) => a + b, 0)
+}
 
 // 18. Return an array of Beyonce's hairstyles without repeats
-function uniqueHairstyles() {}
+function uniqueHairstyles() {
+    return beyonceHash.hits.filter(fun => fun.hair.includes("blonde"))
+}
 
 // 19. Return an object where the properties are song names and the value is an object which contains that song's fierceness and the average fierceness for all songs
 function songFiercenessByName() {}
