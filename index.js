@@ -117,8 +117,8 @@ function getSongsByFiercenessGTE() {
 
 
 // 7. Return an array with all of the movies Beyonce made after or during a given year
-function getMoviesByDateGTE() {
-    const oSix = beyonceHash.movies.filter(movie => (movie.year === 2006))
+function getMoviesByDateGTE(year) {
+    const oSix = beyonceHash.movies.filter(movie => (movie.year >= year))
     return oSix.map(movie => movie.title)
 }
 
@@ -215,7 +215,8 @@ function movieRatingsByName() {
 }
 
 // 21. Return an object with Beyonce's hairstyles as the keys and a tally of each hairstyle, eg. `{ "blonde": 3, ... }`
-function hairStyleFrequency() {}
-
-
-console.log(movieRatingsByName());
+function hairStyleFrequency() {
+    return beyonceHash.hits
+        .flatMap(song => song.hair)
+        .reduce((object, hair) => (object[hair] = ++object[hair] || 1, object), {})
+}
